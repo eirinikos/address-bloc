@@ -2,7 +2,13 @@
 
 # Using require_relative, tell Ruby to load
 # the library named entry.rb relative to address_book.rb's filepath
-require_relative "entry.rb"
+require_relative "entry"
+
+# require
+# require_relative "../name"
+# extend
+# include
+# load
 
 class AddressBook
   attr_accessor :entries
