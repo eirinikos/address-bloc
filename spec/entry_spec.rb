@@ -5,7 +5,7 @@
 # #2 Use context to give our test structure & communicate
 # that all specs inside it belong to the same context.
 # In this case, we use context to communicate that the
-# specs in the context will test Entry attributes
+# specs in the context will test Entry attributes.
 
 # #3 We separate our individual tests using the it method
 # Each it represents a unique test.
@@ -35,7 +35,7 @@ RSpec.describe Entry do
       expect(entry).to respond_to(:name)
     end
 
-    it "should respond to  phone number" do
+    it "should respond to phone number" do
       entry = Entry.new("Ada Lovelace", "010.012.1815","augusta.king@lovelace.com")
       expect(entry).to respond_to(:phone_number)
     end
