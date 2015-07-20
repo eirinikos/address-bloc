@@ -15,7 +15,8 @@ class MenuController
     puts "2 - Create an entry"
     puts "3 - Search for an entry"
     puts "4 - Import entries from a CSV"
-    puts "5 - Exit"
+    puts "5 - View Entry Number n"
+    puts "6 - Exit"
     print "Enter your selection: "
 
     selection = gets.to_i
@@ -38,6 +39,10 @@ class MenuController
       read_csv
       main_menu
     when 5
+      system "clear"
+      view_entry_num
+      main_menu
+    when 6
       puts "GOODBYE!"
 
       exit(0)
@@ -81,6 +86,20 @@ class MenuController
   end
 
   def read_csv
+  end
+
+  def view_entry_num
+    system "clear"
+    print "View entry number: "
+    entry_num = gets.to_i
+
+    if entry_num >= 0 && entry_num < @address_book.entries.size
+      system "clear"
+      puts @address_book.entries[entry_num].to_s
+    else
+      puts "Sorry, that is not a valid input."
+      # this still allows char inputs?
+    end   
   end
 
   def entry_submenu(entry)
