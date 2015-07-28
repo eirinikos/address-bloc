@@ -1,19 +1,11 @@
-
-
 # Using require_relative, tell Ruby to load
 # the library named entry.rb relative to address_book.rb's filepath
 require_relative "entry"
 require "csv"
 
-# require
-# require_relative "../name"
-# extend
-# include
-# load
-
 class AddressBook
   attr_accessor :entries
-  
+
   def initialize
     @entries = []
   end
@@ -42,7 +34,7 @@ class AddressBook
     csv_text = File.read(file_name)
     csv = CSV.parse(csv_text, headers: true, skip_blanks: true)
     # the result of CSV.parse is an object of type CSV::Table
-    
+
     csv.each do |row|
       row_hash = row.to_hash
       add_entry(row_hash["name"], row_hash["phone_number"], row_hash["email"])
@@ -54,7 +46,7 @@ class AddressBook
     upper = entries.length - 1
 
     while lower <= upper
-    # while there is a range of indices to search
+      # while there is a range of indices to search
 
       mid = (lower + upper) / 2
       mid_name = entries[mid].name

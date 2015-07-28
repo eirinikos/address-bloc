@@ -1,7 +1,4 @@
-
-
 require_relative "controllers/menu_controller"
-
 
 menu = MenuController.new
 # create a new menu controller when AddressBloc starts.

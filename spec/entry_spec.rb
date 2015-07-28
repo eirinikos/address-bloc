@@ -1,5 +1,3 @@
-
-
 # #1 The standard first line of an RSpec test file.
 
 # #2 Use context to give our test structure & communicate
