@@ -49,10 +49,13 @@ class AddressBook
     end
   end
 
-  def binary_search(name)
+  def binary_search(name, list=nil)
     lower = 0
     upper = entries.length - 1
 
+    # check the middle element
+    # binary_search(name, half_of_the_list)
+    
     while lower <= upper
     # while there is a range of indices to search
 
@@ -69,5 +72,9 @@ class AddressBook
     end
 
     return nil # if no match is found!
+  end
+
+  def iterative_search(name)
+    entries.find { |entry| name == entry.name }
   end
 end

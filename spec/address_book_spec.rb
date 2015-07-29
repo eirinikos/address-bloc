@@ -138,7 +138,41 @@ RSpec.describe AddressBook do
 
     it "searches AddressBook for Billy" do
       book.import_from_csv("entries.csv")
+
       entry = book.binary_search("Billy")
+      expect(entry).to be_nil
+    end
+  end
+
+  context "#iterative_search" do
+    it "searches AddressBook for Artichoke" do
+      book.import_from_csv("entries_24.csv")
+      entry = book.iterative_search("Artichoke")
+
+      expect entry.instance_of?(Entry)
+      check_entry(entry,"Artichoke","584-9263","arti@cho.ke")
+    end
+
+    it "searches AddressBook for Broccoli" do
+      book.import_from_csv("entries_24.csv")
+      entry = book.iterative_search("Broccoli")
+
+      expect entry.instance_of?(Entry)
+      check_entry(entry,"Broccoli","584-3585","broc@co.li")
+    end
+
+    it "searches AddressBook for Cauliflower" do
+      book.import_from_csv("entries_24.csv")
+      entry = book.iterative_search("Cauliflower")
+
+      expect entry.instance_of?(Entry)
+      check_entry(entry,"Cauliflower","889-9308","cauli@flow.er")
+    end
+
+    it "searches AddressBook for Broccoflower" do
+      book.import_from_csv("entries_24.csv")
+      entry = book.iterative_search("Broccoflower")
+
       expect(entry).to be_nil
     end
   end
