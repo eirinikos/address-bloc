@@ -13,7 +13,8 @@ class MenuController
     puts "2 - Create an entry"
     puts "3 - Search for an entry"
     puts "4 - Import entries from a CSV"
-    puts "5 - Exit"
+    puts "5 - Delete all entries"
+    puts "6 - Exit"
     print "Enter your selection: "
 
     selection = gets.to_i
@@ -36,6 +37,10 @@ class MenuController
       read_csv
       main_menu
     when 5
+      system "clear"
+      annihilate
+      main_menu
+    when 6
       puts "GOODBYE!"
 
       exit(0)
@@ -89,7 +94,7 @@ class MenuController
       puts match.to_s
       search_submenu(match)
     else
-      puts "No match found for #{name.}"
+      puts "No match found for #{name}."
     end
   end
 
@@ -110,6 +115,27 @@ class MenuController
     rescue
       puts "#{file_name} is not a valid CSV file, please enter the name of a valid CSV file."
       read_csv
+    end
+  end
+
+  def annihilate
+    print "Are you sure you want to delete all entries? (y/n): "
+    selection = gets.chomp
+
+    case selection
+
+    when "y"
+      @address_book.entries.clear
+      puts "Congratulations! All entries have been deleted.\n\n"
+      main_menu
+    when "n"
+      system "clear"
+      puts "OK, we'll delete all entries another time.\n\n"
+      main_menu
+    else
+      system "clear"
+      puts "#{selection} IS NOT A VALID INPUT!\n\n"
+      annihilate
     end
   end
 
@@ -138,7 +164,7 @@ class MenuController
   end
 
   def search_submenu(entry)
-    puts "\n - delete entry"
+    puts "\nd - delete entry"
     puts "e - edit this entry"
     puts "m - return to main menu"
 
@@ -162,6 +188,7 @@ class MenuController
       puts "#{selection} IS NOT A VALID INPUT!"
       puts entry.to_s
       search_submenu(entry)
+    end
   end
 
   def entry_submenu(entry)
