@@ -89,7 +89,7 @@ class MenuController
       puts match.to_s
       search_submenu(match)
     else
-      puts "No match found for #{name.}"
+      puts "No match found for #{name}."
     end
   end
 
@@ -138,7 +138,7 @@ class MenuController
   end
 
   def search_submenu(entry)
-    puts "\n - delete entry"
+    puts "\nd - delete entry"
     puts "e - edit this entry"
     puts "m - return to main menu"
 
@@ -162,6 +162,7 @@ class MenuController
       puts "#{selection} IS NOT A VALID INPUT!"
       puts entry.to_s
       search_submenu(entry)
+    end
   end
 
   def entry_submenu(entry)
