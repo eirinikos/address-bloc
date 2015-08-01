@@ -76,28 +76,117 @@ class MenuController
   end
 
   def search_entries
+    print "Search by name: "
+    name = gets.chomp
+
+    match = @address_book.binary_search(name)
+    # this will return a match, or nil
+    # it will never return an empty string since
+    # import_from_csv will fail if an entry doesn't have a name
+    system "clear"
+
+    if match
+      puts match.to_s
+      search_submenu(match)
+    else
+      puts "No match found for #{name.}"
+    end
   end
 
   def read_csv
+    print "Enter CSV file to import: "
+    file_name = gets.chomp
+
+    if file_name.empty?
+      system "clear"
+      puts "No CSV file read."
+      main_menu
+    end
+
+    begin
+      entry_count = @address_book.import_from_csv(file_name).count
+      system "clear"
+      puts "#{entry_count} new entries added from #{file_name}."
+    rescue
+      puts "#{file_name} is not a valid CSV file, please enter the name of a valid CSV file."
+      read_csv
+    end
   end
 
-  def entry_submenu(entry)
-    puts "n - next entry"
-    puts "d - delete entry"
+  def delete_entry(entry)
+    @address_book.entries.delete(entry)
+    puts "#{entry.name} has been deleted."
+  end
+
+  def edit_entry(entry)
+    print "Updated name: "
+    name = gets.chomp
+
+    print "Updated phone number: "
+    phone_number = gets.chomp
+
+    print "Updated email: "
+    email = gets.chomp
+
+    entry.name = name if !name.empty?
+    entry.phone_number = phone_number if !phone_number.empty?
+    entry.email = email if !email.empty?
+    system "clear"
+
+    puts "Updated entry:"
+    puts entry
+  end
+
+  def search_submenu(entry)
+    puts "\n - delete entry"
     puts "e - edit this entry"
-    puts "m - return to the main menu"
+    puts "m - return to main menu"
 
     selection = gets.chomp
 
     case selection
-    when "n"
-      # for now, entering n, d, or e just returns control to view_all_entries
+
     when "d"
+      system "clear"
+      delete_entry(entry)
+      main_menu
     when "e"
+      system "clear"
+      edit_entry(entry) 
+      main_menu
     when "m"
       system "clear"
       main_menu
     else
+      system "clear"
+      puts "#{selection} IS NOT A VALID INPUT!"
+      puts entry.to_s
+      search_submenu(entry)
+  end
+
+  def entry_submenu(entry)
+    puts "\nn - next entry"
+    puts "d - delete entry"
+    puts "e - edit this entry"
+    puts "m - return to the main menu"
+
+    selection = $stdin.gets.chomp
+
+    case selection
+
+    when "n"
+    when "d"
+      delete_entry(entry)
+      # upon deletion, control returns to view_all_entries
+      # and the next entry will be displayed
+    when "e"
+      edit_entry(entry)
+      entry_submenu(entry)
+    when "m"
+      system "clear"
+      main_menu
+    else
+      system "clear"
       puts "#{selection} IS NOT A VALID INPUT!"
       entry_submenu(entry)
     end
